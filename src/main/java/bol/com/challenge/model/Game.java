@@ -3,13 +3,10 @@ package bol.com.challenge.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * @author Ehsan Sh
@@ -20,11 +17,12 @@ import java.util.UUID;
 @Builder
 public class Game {
     @Id
-    private UUID id;
+    private String id;
     private List<Pit> pits;
     private GameStatusEnum status;
-    private String firstPlayer;
-    private String secondPlayer;
+    private Player firstPlayer;
+    private Player secondPlayer;
+    private Player winner;
 
     public final static Integer pit1FirstPlayer = 1;
     public final static Integer pit2FirstPlayer = 2;
@@ -67,14 +65,16 @@ public class Game {
                 new LargeRightPit(largeRightPitSecondPlayer, 0)
         );
 
-        PlayerTurnEnum[] turns = PlayerTurnEnum.values();
+
+        playerTurn = PlayerTurnEnum.FIRST_PLAYER;
+        /*PlayerTurnEnum[] turns = PlayerTurnEnum.values();
         Random random = new Random();
-        playerTurn = turns[random.nextInt(turns.length)];
+        playerTurn = turns[random.nextInt(turns.length)];*/
 
 
     }
 
-    public Pit getPitByIndex(Integer index){
-        return pits.get(index-1);
+    public Pit getPitByIndex(Integer index) {
+        return pits.get(index - 1);
     }
 }

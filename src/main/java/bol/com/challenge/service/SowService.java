@@ -28,25 +28,29 @@ public class SowService {
         if (selectedPit.getStones() == 0) {
             throw new GameException("The selected pit has 0 stones!");
         }
-        //GameOver
+        if (game.getStatus() == GameStatusEnum.FINISHED) {
+            throw new GameException("The status of game is finished!");
+        }
 
         //Rules
         Integer currentPitIndex = pitIndex;
         for (int i = 1; i <= selectedPit.getStones() - 1; i++) {
-            currentPitIndex = (pitIndex + i) <= 14 ? (pitIndex + i) : (pitIndex + i) % 14;
+            currentPitIndex = ( currentPitIndex + 1 ) % 15 == 0 ? (currentPitIndex + 1 ) % 15 +1 : (currentPitIndex + 1 ) % 15;
 
             if (ifCurrentPitIndexIs_a_LargeRightPit_but_belongToThePlayerWhoNowIsNotTurn(game, currentPitIndex)) {
-                currentPitIndex++;
+                currentPitIndex = ( currentPitIndex + 1 ) % 15 == 0 ? (currentPitIndex + 1 ) % 15 +1 : (currentPitIndex + 1 ) % 15;
             }
 
-            game.getPitByIndex(currentPitIndex).sow();
+             game.getPitByIndex(currentPitIndex).sow();
         }
 
         selectedPit.setStones(0);
 
-        currentPitIndex = (currentPitIndex + 1) <= 14 ? (currentPitIndex + 1) : (currentPitIndex + 1) % 14;
+        currentPitIndex = ( currentPitIndex + 1 ) % 15 == 0 ? (currentPitIndex + 1 ) % 15 +1 : (currentPitIndex + 1 ) % 15;
+
         if (ifCurrentPitIndexIs_a_LargeRightPit_but_belongToThePlayerWhoNowIsNotTurn(game, currentPitIndex)) {
-            currentPitIndex++;
+            currentPitIndex = ( currentPitIndex + 1 ) % 15 == 0 ? (currentPitIndex + 1 ) % 15 +1 : (currentPitIndex + 1 ) % 15;
+
         }
         Pit lastPin = game.getPitByIndex(currentPitIndex);
         Pit oppositePit = game.getPitByIndex(14 - currentPitIndex != 0 ? 14 - currentPitIndex : 7);
@@ -55,6 +59,9 @@ public class SowService {
         if (!lastPin.getId().equals(Game.largeRightPitFirstPlayer) &&
                 !lastPin.getId().equals(Game.largeRightPitSecondPlayer) &&
                 lastPin.isEmpty() &&
+                ((game.getPlayerTurn().equals(PlayerTurnEnum.FIRST_PLAYER) && lastPin.getId() < 8)
+                        ||
+                        (game.getPlayerTurn().equals(PlayerTurnEnum.SECOND_PLAYER) && lastPin.getId() > 7)) &&
                 !oppositePit.isEmpty()) {
 
             Integer oppositeStones = oppositePit.getStones();
@@ -69,10 +76,35 @@ public class SowService {
 
 
         //End Game
-        if (game.getPitByIndex(Game.largeRightPitSecondPlayer).getStones() +
+        Integer stoneSumOfFirstPlayer = 0;
+        for (int i = 1; i < 7; i++) {
+            stoneSumOfFirstPlayer= stoneSumOfFirstPlayer + game.getPitByIndex(i).getStones();
+        }
+        Integer stoneSumOfSecondPlayer = 0;
+        for (int i = 8; i < 14; i++) {
+            stoneSumOfSecondPlayer= stoneSumOfSecondPlayer + game.getPitByIndex(i).getStones();
+        }
+        if(stoneSumOfFirstPlayer == 0 || stoneSumOfSecondPlayer == 0){
+            for (int i = 1; i < 7; i++) {
+                game.getPitByIndex(i).setStones(0);
+            }
+            game.getPitByIndex(Game.largeRightPitFirstPlayer).setStones(
+                    game.getPitByIndex(Game.largeRightPitFirstPlayer).getStones() + stoneSumOfFirstPlayer);
+            for (int i = 8; i < 14; i++) {
+                game.getPitByIndex(i).setStones(0);
+            }
+            game.getPitByIndex(Game.largeRightPitSecondPlayer).setStones(
+                    game.getPitByIndex(Game.largeRightPitSecondPlayer).getStones() + stoneSumOfSecondPlayer);
+        }
+
+        if (game.getPitByIndex(Game.largeRightPitFirstPlayer).getStones() +
                 game.getPitByIndex(Game.largeRightPitSecondPlayer).getStones() == 72) {
             game.setStatus(GameStatusEnum.FINISHED);
-            //@todo specify winner
+            game.setWinner(game.getPitByIndex(Game.largeRightPitFirstPlayer).getStones() >
+                    game.getPitByIndex(Game.largeRightPitSecondPlayer).getStones() ?
+                    game.getFirstPlayer() :
+                    game.getSecondPlayer() );
+            //@Todo Impl equal stones
             return game;
         }
 
@@ -89,8 +121,8 @@ public class SowService {
     }
 
     private boolean ifCurrentPitIndexIs_a_LargeRightPit_but_belongToThePlayerWhoNowIsNotTurn(Game game, Integer currentPitIndex) {
-        return (game.getPlayerTurn().equals(PlayerTurnEnum.FIRST_PLAYER) && currentPitIndex == Game.largeRightPitSecondPlayer) ||
-                (game.getPlayerTurn().equals(PlayerTurnEnum.SECOND_PLAYER) && currentPitIndex == Game.largeRightPitFirstPlayer);
+        return (game.getPlayerTurn().equals(PlayerTurnEnum.FIRST_PLAYER) && currentPitIndex.equals(Game.largeRightPitSecondPlayer)) ||
+                (game.getPlayerTurn().equals(PlayerTurnEnum.SECOND_PLAYER) && currentPitIndex.equals(Game.largeRightPitFirstPlayer));
 
     }
 

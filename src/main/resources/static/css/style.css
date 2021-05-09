@@ -1,0 +1,85 @@
+body {
+    background: #212121;
+    color: #666;
+}
+
+h1 {
+    text-align: center;
+    color: #fff;
+}
+
+.clearfix {
+    clear: both;
+}
+
+#box {
+    width: 750px;
+    height: 450px;
+    overflow: auto;
+    margin: 40px auto;
+    background: #666;
+    padding-bottom: 40px;
+    border-radius: 10px;
+}
+
+#message {
+    background: #333;
+    color: #fff;
+}
+
+
+.pitName {
+    margin: 10px;
+    height: 20px;
+    width: 20px;
+    font-size: 10px;
+    background: #333;
+    color: rgba(14, 204, 70, 0.87);
+    list-style: none;
+    text-align: center;
+    border-radius: 5px;
+
+}
+.pitValue {
+    float: left;
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    font-size: 50px;
+    background: #333;
+    color: #ccc;
+    list-style: none;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
+.largerPitValue {
+    float: left;
+    margin: 10px;
+    height: 70px;
+    width: 70px;
+    font-size: 50px;
+    background: #333;
+    color: #ccc;
+    list-style: none;
+    text-align: center;
+    border-radius: 10px;
+
+}
+
+#gameBoard td.pitValue:hover {
+    cursor: pointer;
+    background: #000;
+}
+#gameBoard table{
+    text-align: center;
+}
+
+
+
+footer {
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+}
