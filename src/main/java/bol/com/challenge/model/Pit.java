@@ -1,5 +1,6 @@
 package bol.com.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Pit {
         this.stones++;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return this.stones==0;
     }

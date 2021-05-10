@@ -1,38 +1,33 @@
-package bol.com.challenge;
+package bol.com.challenge.service;
 
 import bol.com.challenge.model.Game;
 import bol.com.challenge.model.PlayerTurnEnum;
-import bol.com.challenge.service.SowService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.annotation.DirtiesContext;
 
 /**
  * @author Ehsan Sh
  */
 
 @ExtendWith(MockitoExtension.class)
-public class SowServiceTests {
-    private static final Integer defaultPitStones = 6;
+class SowServiceTests {
 
     private Game game;
 
     private SowService sowService;
 
     @BeforeEach
-    public void setupTest() {
+    void setupTest() {
         this.game = new Game();
         this.sowService = new SowService();
     }
 
     @Test
-    public void testCreateGame() {
+    void testCreateGame() {
         assertNotNull(this.game);
         Assertions.assertThat(this.game.getPits().toString()).isEqualTo("[1:6, 2:6, 3:6, 4:6, 5:6, 6:6, 7:0, 8:6, 9:6, 10:6, 11:6, 12:6, 13:6, 14:0]");
     }
@@ -40,7 +35,7 @@ public class SowServiceTests {
     //@todo write Test for exception
 
     @Test
-    public void testSampleSowsCheckRolesAndTurn() {
+    void testSampleSowsCheckRolesAndTurn() {
         game.setPlayerTurn(PlayerTurnEnum.FIRST_PLAYER);
         Assertions.assertThat(this.game.getPits().toString()).isEqualTo("[1:6, 2:6, 3:6, 4:6, 5:6, 6:6, 7:0, 8:6, 9:6, 10:6, 11:6, 12:6, 13:6, 14:0]");
         this.game = sowService.sow(this.game, 2);

@@ -1,0 +1,70 @@
+{
+  "id": "91f69bc5-803c-46e5-bc30-4a6b71fd860e",
+  "pits": [
+    {
+      "id": 1,
+      "stones": 6
+    },
+    {
+      "id": 2,
+      "stones": 6
+    },
+    {
+      "id": 3,
+      "stones": 6
+    },
+    {
+      "id": 4,
+      "stones": 0
+    },
+    {
+      "id": 5,
+      "stones": 7
+    },
+    {
+      "id": 6,
+      "stones": 7
+    },
+    {
+      "id": 7,
+      "stones": 1
+    },
+    {
+      "id": 8,
+      "stones": 7
+    },
+    {
+      "id": 9,
+      "stones": 7
+    },
+    {
+      "id": 10,
+      "stones": 7
+    },
+    {
+      "id": 11,
+      "stones": 7
+    },
+    {
+      "id": 12,
+      "stones": 6
+    },
+    {
+      "id": 13,
+      "stones": 6
+    },
+    {
+      "id": 14,
+      "stones": 0
+    }
+  ],
+  "status": "IN_PROGRESS",
+  "firstPlayer": {
+    "name": "first_player"
+  },
+  "secondPlayer": {
+    "name": "second_player"
+  },
+  "winner": null,
+  "playerTurn": "FIRST_PLAYER"
+}
