@@ -1,11 +1,14 @@
-# Ehsan Shakeri
+<a href="https://foojay.io/today/works-with-openjdk">
+   <img align="right" 
+        src="https://github.com/foojayio/badges/raw/main/works_with_openjdk/Works-with-OpenJDK.png"   
+        width="100">
+</a>
 
 Mancala Challenge
 ---
-This is my technical assignment for Bol.com
 
 ### What I did
-I design and develop base on Spring framework.
+I design and develop this project base on Spring framework.
 
 - `Spring Boot`
 - `WebSocket` , for getting changes and refreshing  game board

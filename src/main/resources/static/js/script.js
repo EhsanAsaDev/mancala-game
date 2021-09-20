@@ -36,6 +36,8 @@ function makeAMove(id) {
 }
 
 function refreshGameBoard(data) {
+
+
     let pits = data.pits;
     for (let i = 0; i < pits.length; i++) {
         $("#pit_" + i).text(pits[i].stones);
@@ -51,10 +53,12 @@ function refreshGameBoard(data) {
     if (playerType == "FIRST_PLAYER") {
         $("#firstPlayerName").background="#1472a9";
         $("#secondPlayerName").background="#333";
+        $("#opponentLogin").text(data.secondPlayer!= null ? data.secondPlayer.name : "");
 
     } else {
         $("#secondPlayerName").background ="#1472a9";
         $("#firstPlayerName").background="#333";
+        $("#opponentLogin").text(data.firstPlayer.name);
 
     }
 
